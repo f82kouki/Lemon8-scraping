@@ -10,7 +10,7 @@ LOG_FILE ?= Lemon8/tests/runtime/validation_debug.log
 REGION ?= jp
 ALLOWED_REGIONS ?= jp
 
-.PHONY: install test validate validate-verbose validate-multi validate-multi-default vm
+.PHONY: install test validate validate-verbose validate-multi validate-multi-default vm validate-multi-verbose vmv
 
 install:
 	$(PYTHON) -m pip install --user pytest httpx beautifulsoup4
@@ -55,3 +55,19 @@ validate-multi-default:
 
 # Super short alias for multi-user validation.
 vm: validate-multi-default
+
+validate-multi-verbose:
+	@test -f "$(URL_USER_MAPPING_FILE)" || (echo "Missing mapping file: $(URL_USER_MAPPING_FILE)"; echo "Usage: make validate-multi-verbose URL_USER_MAPPING_FILE=path/to/url_user_mapping.csv LINKED_ACCOUNTS_FILE=path/to/linked_accounts_multi.json"; exit 1)
+	$(PYTHON) -m Lemon8.poc.run_validation \
+		--mode multi_user \
+		--urls-file "$(URLS_FILE)" \
+		--linked-accounts-file "$(LINKED_ACCOUNTS_MULTI_FILE)" \
+		--url-user-mapping-file "$(URL_USER_MAPPING_FILE)" \
+		--output-jsonl "$(OUTPUT_JSONL_MULTI)" \
+		--region "$(REGION)" \
+		--allowed-regions "$(ALLOWED_REGIONS)" \
+		--verbose \
+		--log-file "$(LOG_FILE)"
+
+# Super short alias for multi-user verbose validation.
+vmv: validate-multi-verbose

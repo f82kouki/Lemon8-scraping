@@ -7,6 +7,7 @@ import json
 import logging
 from pathlib import Path
 import time
+from urllib.parse import urlsplit
 
 from Lemon8.poc.lemon8_client import enforce_stop_guard, fetch_with_retry
 from Lemon8.poc.lemon8_parser import extract_author_from_post_url, parse_post_metrics
@@ -35,6 +36,28 @@ def setup_logger(verbose: bool = False, log_file: str | None = None) -> logging.
         logger.addHandler(file_handler)
 
     return logger
+
+
+def _display_url(url: str) -> str:
+    parts = urlsplit(url)
+    if not parts.query:
+        return url
+    return f"{parts.scheme}://{parts.netloc}{parts.path}?..."
+
+
+def _log_final_row(log: logging.Logger, row: dict) -> None:
+    # Console(INFO): compact line for readability.
+    log.info(
+        "[RESULT] user_id=%s fetch_ok=%s read_count=%s ownership=%s reason=%s elapsed_ms=%s",
+        row.get("user_id"),
+        row.get("fetch_ok"),
+        row.get("read_count"),
+        row.get("ownership_status"),
+        row.get("failure_reason"),
+        row.get("elapsed_ms"),
+    )
+    # File(DEBUG): keep full payload for traceability.
+    log.debug("final_row_json=%s", json.dumps(row, ensure_ascii=False, indent=2))
 
 
 def load_urls(path: str) -> list[str]:
@@ -119,7 +142,12 @@ def run_batch_validation(
 
     for target in targets:
         started = time.perf_counter()
-        log.info("start user_id=%s region=%s url=%s", target.user_id, target.region, target.url)
+        log.info(
+            "[START] user_id=%s region=%s url=%s",
+            target.user_id,
+            target.region,
+            _display_url(target.url),
+        )
 
         if target.region not in allow_regions:
             elapsed_ms = int((time.perf_counter() - started) * 1000)
@@ -143,21 +171,22 @@ def run_batch_validation(
             }
             results.append(row)
             log.warning(
-                "skip region_not_allowed user_id=%s region=%s allowed_regions=%s",
+                "[SKIP] region_not_allowed user_id=%s region=%s allowed_regions=%s",
                 target.user_id,
                 target.region,
                 ",".join(sorted(allow_regions)),
             )
-            log.info("final row=%s", json.dumps(row, ensure_ascii=False))
+            _log_final_row(log, row)
             continue
 
         try:
             fetch_result = fetch_with_retry(target.url)
             log.info(
-                "fetch status=%s ok=%s error_type=%s",
+                "[FETCH] status=%s ok=%s error_type=%s final_url=%s",
                 fetch_result.http_status,
                 fetch_result.ok,
                 fetch_result.error_type,
+                _display_url(fetch_result.final_url) if fetch_result.final_url else None,
             )
             consecutive_blocked = enforce_stop_guard(
                 recent_statuses=recent_statuses,
@@ -186,8 +215,8 @@ def run_batch_validation(
                 "elapsed_ms": elapsed_ms,
             }
             results.append(row)
-            log.error("stop_guard triggered url=%s reason=%s", target.url, str(exc))
-            log.info("final row=%s", json.dumps(row, ensure_ascii=False))
+            log.error("[STOP_GUARD] triggered url=%s reason=%s", _display_url(target.url), str(exc))
+            _log_final_row(log, row)
             break
 
         if not fetch_result.ok:
@@ -212,17 +241,17 @@ def run_batch_validation(
             }
             results.append(row)
             log.warning(
-                "fetch failed url=%s status=%s error_type=%s",
-                target.url,
+                "[FETCH_FAIL] url=%s status=%s error_type=%s",
+                _display_url(target.url),
                 fetch_result.http_status,
                 fetch_result.error_type,
             )
-            log.info("final row=%s", json.dumps(row, ensure_ascii=False))
+            _log_final_row(log, row)
             continue
 
         parse_result = parse_post_metrics(fetch_result.raw_html or "", target.url)
         log.info(
-            "parse read_count=%s author=%s parse_error=%s",
+            "[PARSE] read_count=%s author=%s parse_error=%s",
             parse_result.read_count,
             parse_result.author_link_name,
             parse_result.parse_error,
@@ -241,7 +270,7 @@ def run_batch_validation(
             url=target.url,
         )
         log.info(
-            "ownership status=%s reason=%s actual=%s expected=%s author_source=%s",
+            "[OWNERSHIP] status=%s reason=%s actual=%s expected=%s author_source=%s",
             ownership.ownership_status,
             ownership.reason,
             ownership.actual_link_name,
@@ -269,7 +298,7 @@ def run_batch_validation(
             "elapsed_ms": elapsed_ms,
         }
         results.append(row)
-        log.info("final row=%s", json.dumps(row, ensure_ascii=False))
+        _log_final_row(log, row)
 
     if stop_triggered and results:
         # Traceability: mark all returned rows with final stop state.

@@ -22,6 +22,20 @@ make install
 
 `pytest`, `httpx`, `beautifulsoup4` をインストールします。
 
+## クイック実行
+
+```bash
+make test
+make validate
+make validate-verbose
+make vm
+make vmv
+```
+
+- `validate` / `validate-verbose`: `single_user` 用
+- `vm` / `vmv`: `multi_user` 用（runtime 既定ファイルを利用）
+- `vmv` は `--verbose` と `--log-file` 付きで実行
+
 ## 検証実行（単一ユーザー）
 
 デフォルト設定のまま実行:
@@ -57,9 +71,12 @@ make validate-multi \
 
 ```bash
 make vm
+make vmv
 ```
 
 出力先は `OUTPUT_JSONL_MULTI`（デフォルト: `Lemon8/tests/runtime/validation_result_multi.jsonl`）です。
+
+`vmv` の詳細ログ出力先は `LOG_FILE`（デフォルト: `Lemon8/tests/runtime/validation_debug.log`）です。
 
 ## ファイル形式
 
@@ -106,12 +123,45 @@ https://s.lemon8-app.com/al/GgbccrUvTc
 結果JSONLは1行1レコードで、主に以下を含みます。
 
 - `user_id`, `url`, `final_url`
+- `lemon8_link_names`（このURLで照合対象にした連携名）
 - `fetch_ok`, `http_status`, `error_type`
 - `read_count`, `author_link_name`, `effective_author_link_name`
 - `ownership_status`（`matched` / `mismatched` / `unknown`）
 - `failure_reason`, `stop_triggered`, `elapsed_ms`
 
-標準出力には、成功率や一致率をまとめたサマリJSONが表示されます。
+標準出力には、成功率や一致率をまとめたサマリJSONが表示されます（`single_user` 時は `lemon8_link_names` も表示）。
+
+## よくあるエラー
+
+- `ValueError: single_userモードではlinked_accountsは1ユーザーのみ許容します。`
+  - 原因: `validate-verbose` など `single_user` 実行時に、複数ユーザー形式JSONを指定している
+  - 対処: `make vm` / `make vmv` を使うか、`linked_accounts.json` を単一ユーザー形式にする
+
+## デフォルト実行時の注意（multi_user）
+
+- `make vmv` のデフォルト runtime データは、挙動確認のために **1件の無効URL（404）** を含んでいます。
+- そのため、デフォルト実行ではサマリが次のようになり、`ownership_status_counts.unknown = 1` が出ます（想定どおり）。
+
+```json
+{
+  "total": 11,
+  "fetch_success_rate": 90.91,
+  "read_count_extraction_rate": 90.91,
+  "read_count": null,
+  "read_count_sum": 21516,
+  "lemon8_link_names": null,
+  "ownership_status": null,
+  "ownership_status_counts": {
+    "matched": 3,
+    "mismatched": 7,
+    "unknown": 1
+  },
+  "ownership_decidable_rate": 90.91,
+  "auto_stopped": false
+}
+```
+
+- `unknown: 0` で評価したい場合は、`Lemon8/tests/runtime/urls.txt` の無効URLを有効URLに差し替えるかコメントアウトして実行してください。
 
 ## 補足
 
