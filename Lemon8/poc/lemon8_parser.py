@@ -10,6 +10,7 @@ from Lemon8.poc.models import ParseResult
 
 _URL_USER_PATTERN = re.compile(r"/@([^/?#]+)")
 _URL_GROUP_PATTERN = re.compile(r"/@[^/]+/(\d+)")
+_URL_AUTHOR_GROUP_PATTERN = re.compile(r"/@([^/?#]+)/(\d+)")
 
 
 def extract_script_texts(html: str) -> list[str]:
@@ -119,8 +120,9 @@ def normalize_link_name(value: str | None) -> str | None:
     return normalized or None
 
 
-def _extract_author_from_url(source_url: str) -> str | None:
-    match = _URL_USER_PATTERN.search(source_url)
+def extract_author_from_post_url(source_url: str) -> str | None:
+    """Extract author from Lemon8 post URL format /@<user>/<post_id>."""
+    match = _URL_AUTHOR_GROUP_PATTERN.search(source_url)
     if not match:
         return None
     return normalize_link_name(match.group(1))
@@ -152,7 +154,7 @@ def parse_post_metrics(html: str, source_url: str) -> ParseResult:
     read_count = normalize_numeric(read_raw) if read_raw is not None else None
     author = normalize_link_name(str(author_raw) if author_raw is not None else None)
     if author is None:
-        author = _extract_author_from_url(source_url)
+        author = extract_author_from_post_url(source_url)
 
     parse_error = None
     parse_ok = True

@@ -9,7 +9,7 @@ from pathlib import Path
 import time
 
 from Lemon8.poc.lemon8_client import enforce_stop_guard, fetch_with_retry
-from Lemon8.poc.lemon8_parser import parse_post_metrics
+from Lemon8.poc.lemon8_parser import extract_author_from_post_url, parse_post_metrics
 from Lemon8.poc.models import StopExecutionError, ValidationTarget
 from Lemon8.poc.ownership_validator import validate_ownership
 
@@ -127,6 +127,8 @@ def run_batch_validation(
                 "user_id": target.user_id,
                 "url": target.url,
                 "final_url": None,
+                "effective_author_link_name": None,
+                "author_source": "missing",
                 "region": target.region,
                 "fetch_ok": False,
                 "http_status": None,
@@ -168,6 +170,8 @@ def run_batch_validation(
                 "user_id": target.user_id,
                 "url": target.url,
                 "final_url": None,
+                "effective_author_link_name": None,
+                "author_source": "missing",
                 "region": target.region,
                 "fetch_ok": False,
                 "http_status": 429,
@@ -190,6 +194,8 @@ def run_batch_validation(
                 "user_id": target.user_id,
                 "url": target.url,
                 "final_url": fetch_result.final_url,
+                "effective_author_link_name": None,
+                "author_source": "missing",
                 "region": target.region,
                 "fetch_ok": False,
                 "http_status": fetch_result.http_status,
@@ -220,17 +226,24 @@ def run_batch_validation(
         )
         error_type = "html_schema_changed" if parse_result.parse_error == "html_schema_changed" else None
 
+        effective_author_link_name = parse_result.author_link_name
+        author_source = "html"
+        if effective_author_link_name is None:
+            effective_author_link_name = extract_author_from_post_url(fetch_result.final_url or "")
+            author_source = "final_url" if effective_author_link_name is not None else "missing"
+
         ownership = validate_ownership(
-            actual_link_name=parse_result.author_link_name,
+            actual_link_name=effective_author_link_name,
             linked_names=target.expected_link_names,
             url=target.url,
         )
         log.info(
-            "ownership status=%s reason=%s actual=%s expected=%s",
+            "ownership status=%s reason=%s actual=%s expected=%s author_source=%s",
             ownership.ownership_status,
             ownership.reason,
             ownership.actual_link_name,
             ",".join(ownership.expected_link_names),
+            author_source,
         )
 
         elapsed_ms = int((time.perf_counter() - started) * 1000)
@@ -238,6 +251,8 @@ def run_batch_validation(
             "user_id": target.user_id,
             "url": target.url,
             "final_url": fetch_result.final_url,
+            "effective_author_link_name": effective_author_link_name,
+            "author_source": author_source,
             "region": target.region,
             "fetch_ok": True,
             "http_status": fetch_result.http_status,

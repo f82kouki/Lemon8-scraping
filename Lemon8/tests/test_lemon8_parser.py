@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from Lemon8.poc.lemon8_parser import normalize_numeric, parse_post_metrics
+from Lemon8.poc.lemon8_parser import extract_author_from_post_url, normalize_numeric, parse_post_metrics
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -55,3 +55,14 @@ def test_normalize_numeric_edge_cases():
     assert normalize_numeric("abc") == 0
     assert normalize_numeric("-12") == 0
     assert normalize_numeric("12345") == 12345
+
+
+def test_extract_author_from_post_url_valid():
+    assert (
+        extract_author_from_post_url("https://www.lemon8-app.com/@f82_bmw4/7613685322899079688?region=jp")
+        == "f82_bmw4"
+    )
+
+
+def test_extract_author_from_post_url_invalid():
+    assert extract_author_from_post_url("https://www.lemon8-app.com/discover/trending") is None

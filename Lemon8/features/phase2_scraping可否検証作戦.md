@@ -85,3 +85,12 @@ python3 -m Lemon8.poc.run_validation \
   - 最終レスポンスが `2xx`
   - 本文が `challenge/captcha/consent` ではない
 - 上記を満たさない場合は `error_type=redirected` で失敗扱い
+
+## ownership判定のauthor優先順位
+
+- 判定に使う実効投稿者名 `effective_author_link_name` は次の順で決定
+  - `parse_post_metrics(...).author_link_name`（`author_source=html`）
+  - `final_url` から抽出した `@username`（`author_source=final_url`）
+  - どちらも取得不可なら `None`（`author_source=missing`）
+- `final_url` fallback は `/@<user>/<post_id>` 形式に一致した場合のみ採用
+- fallback値にも既存正規化（lowercase / `@`除去 / URL decode / 末尾`/`除去）を適用
