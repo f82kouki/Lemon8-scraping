@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from collections import deque
+import re
 import time
+from urllib.parse import urlparse
 
 import httpx
 
@@ -19,6 +21,7 @@ DEFAULT_HEADERS = {
 
 _CHALLENGE_KEYWORDS = ("captcha", "challenge", "verify you are human")
 _CONSENT_KEYWORDS = ("consent", "cookie settings", "accept all")
+_POST_PATH_PATTERN = re.compile(r"^/@[^/]+/\d+/?$")
 
 
 def _detect_content_issue(html: str | None) -> str | None:
@@ -32,9 +35,30 @@ def _detect_content_issue(html: str | None) -> str | None:
     return None
 
 
-def _classify_response(response: httpx.Response) -> str | None:
+def _is_allowed_host(host: str | None) -> bool:
+    if not host:
+        return False
+    return host == "lemon8-app.com" or host.endswith(".lemon8-app.com")
+
+
+def _is_post_path(path: str) -> bool:
+    return _POST_PATH_PATTERN.match(path) is not None
+
+
+def _is_safe_redirect_target(response: httpx.Response) -> bool:
+    parsed = urlparse(str(response.url))
+    return (
+        200 <= response.status_code < 300
+        and _is_allowed_host(parsed.hostname)
+        and _is_post_path(parsed.path)
+    )
+
+
+def _classify_response(response: httpx.Response, content_issue: str | None) -> str | None:
     status = response.status_code
-    if response.history:
+    if content_issue is not None:
+        return content_issue
+    if response.history and not _is_safe_redirect_target(response):
         return "redirected"
     if status == 403:
         return "forbidden"
@@ -42,7 +66,7 @@ def _classify_response(response: httpx.Response) -> str | None:
         return "rate_limited"
     if 500 <= status < 600:
         return "network"
-    return _detect_content_issue(response.text)
+    return None
 
 
 def fetch_post_html(url: str, timeout_sec: float = 10.0) -> FetchResult:
@@ -50,16 +74,18 @@ def fetch_post_html(url: str, timeout_sec: float = 10.0) -> FetchResult:
         with httpx.Client(timeout=timeout_sec, follow_redirects=True, headers=DEFAULT_HEADERS) as client:
             response = client.get(url)
     except httpx.TimeoutException:
-        return FetchResult(url=url, http_status=None, ok=False, error_type="timeout", raw_html=None)
+        return FetchResult(url=url, final_url=None, http_status=None, ok=False, error_type="timeout", raw_html=None)
     except httpx.NetworkError:
-        return FetchResult(url=url, http_status=None, ok=False, error_type="network", raw_html=None)
+        return FetchResult(url=url, final_url=None, http_status=None, ok=False, error_type="network", raw_html=None)
     except Exception:
-        return FetchResult(url=url, http_status=None, ok=False, error_type="unknown", raw_html=None)
+        return FetchResult(url=url, final_url=None, http_status=None, ok=False, error_type="unknown", raw_html=None)
 
-    error_type = _classify_response(response)
+    content_issue = _detect_content_issue(response.text)
+    error_type = _classify_response(response, content_issue=content_issue)
     if response.status_code >= 400 or error_type in {"challenge_detected", "consent_required", "redirected"}:
         return FetchResult(
             url=url,
+            final_url=str(response.url),
             http_status=response.status_code,
             ok=False,
             error_type=error_type or "unknown",
@@ -68,6 +94,7 @@ def fetch_post_html(url: str, timeout_sec: float = 10.0) -> FetchResult:
 
     return FetchResult(
         url=url,
+        final_url=str(response.url),
         http_status=response.status_code,
         ok=True,
         error_type=None,
@@ -89,7 +116,14 @@ def fetch_with_retry(url: str, retry_count: int = 3, base_delay_sec: float = 0.7
         time.sleep(sleep_for)
 
     # Unreachable in normal flow.
-    return latest or FetchResult(url=url, http_status=None, ok=False, error_type="unknown", raw_html=None)
+    return latest or FetchResult(
+        url=url,
+        final_url=None,
+        http_status=None,
+        ok=False,
+        error_type="unknown",
+        raw_html=None,
+    )
 
 
 def enforce_stop_guard(

@@ -22,6 +22,7 @@ OwnershipReason = Literal["author_missing", "author_mismatch", "fetch_failed", "
 @dataclass
 class FetchResult:
     url: str
+    final_url: str | None
     http_status: int | None
     ok: bool
     error_type: ErrorType | None

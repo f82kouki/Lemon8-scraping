@@ -126,6 +126,7 @@ def run_batch_validation(
             row = {
                 "user_id": target.user_id,
                 "url": target.url,
+                "final_url": None,
                 "region": target.region,
                 "fetch_ok": False,
                 "http_status": None,
@@ -166,6 +167,7 @@ def run_batch_validation(
             row = {
                 "user_id": target.user_id,
                 "url": target.url,
+                "final_url": None,
                 "region": target.region,
                 "fetch_ok": False,
                 "http_status": 429,
@@ -187,6 +189,7 @@ def run_batch_validation(
             row = {
                 "user_id": target.user_id,
                 "url": target.url,
+                "final_url": fetch_result.final_url,
                 "region": target.region,
                 "fetch_ok": False,
                 "http_status": fetch_result.http_status,
@@ -234,6 +237,7 @@ def run_batch_validation(
         row = {
             "user_id": target.user_id,
             "url": target.url,
+            "final_url": fetch_result.final_url,
             "region": target.region,
             "fetch_ok": True,
             "http_status": fetch_result.http_status,
@@ -261,19 +265,35 @@ def summarize_results(rows: list[dict]) -> dict:
             "total": 0,
             "fetch_success_rate": 0.0,
             "read_count_extraction_rate": 0.0,
+            "read_count": None,
+            "read_count_sum": 0,
+            "ownership_status": None,
+            "ownership_status_counts": {"matched": 0, "mismatched": 0, "unknown": 0},
             "ownership_decidable_rate": 0.0,
             "auto_stopped": False,
         }
 
     fetch_ok = sum(1 for row in rows if row["fetch_ok"])
     read_count_ok = sum(1 for row in rows if row["read_count"] is not None)
+    read_counts = [row["read_count"] for row in rows if row["read_count"] is not None]
+    ownership_status_counts = {
+        "matched": sum(1 for row in rows if row["ownership_status"] == "matched"),
+        "mismatched": sum(1 for row in rows if row["ownership_status"] == "mismatched"),
+        "unknown": sum(1 for row in rows if row["ownership_status"] == "unknown"),
+    }
     ownership_decidable = sum(1 for row in rows if row["ownership_status"] in {"matched", "mismatched"})
     auto_stopped = any(row["stop_triggered"] for row in rows)
 
+    single_read_count = read_counts[0] if total == 1 and read_counts else None
+    single_ownership_status = rows[0]["ownership_status"] if total == 1 else None
     return {
         "total": total,
         "fetch_success_rate": round((fetch_ok / total) * 100, 2),
         "read_count_extraction_rate": round((read_count_ok / total) * 100, 2),
+        "read_count": single_read_count,
+        "read_count_sum": sum(read_counts),
+        "ownership_status": single_ownership_status,
+        "ownership_status_counts": ownership_status_counts,
         "ownership_decidable_rate": round((ownership_decidable / total) * 100, 2),
         "auto_stopped": auto_stopped,
     }
