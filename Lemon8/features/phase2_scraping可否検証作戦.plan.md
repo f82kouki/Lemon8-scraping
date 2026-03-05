@@ -16,6 +16,23 @@ python3 -m Lemon8.poc.run_validation \
   --allowed-regions jp
 ```
 
+## 実行コマンド（ログ詳細あり）
+
+```bash
+python3 -m Lemon8.poc.run_validation \
+  --mode single_user \
+  --urls-file Lemon8/tests/runtime/urls.txt \
+  --linked-accounts-file Lemon8/tests/runtime/linked_accounts.json \
+  --output-jsonl Lemon8/tests/runtime/validation_result.jsonl \
+  --region jp \
+  --allowed-regions jp \
+  --verbose \
+  --log-file Lemon8/tests/runtime/validation_debug.log
+```
+
+- `--verbose`: URLごとの処理段階ログを標準出力に表示
+- `--log-file`: 同じ詳細ログをファイルへ保存
+
 ## 入力ファイル例
 
 - `urls.txt`
