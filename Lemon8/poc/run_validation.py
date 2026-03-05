@@ -127,6 +127,7 @@ def run_batch_validation(
                 "user_id": target.user_id,
                 "url": target.url,
                 "final_url": None,
+                "lemon8_link_names": target.expected_link_names,
                 "effective_author_link_name": None,
                 "author_source": "missing",
                 "region": target.region,
@@ -170,6 +171,7 @@ def run_batch_validation(
                 "user_id": target.user_id,
                 "url": target.url,
                 "final_url": None,
+                "lemon8_link_names": target.expected_link_names,
                 "effective_author_link_name": None,
                 "author_source": "missing",
                 "region": target.region,
@@ -194,6 +196,7 @@ def run_batch_validation(
                 "user_id": target.user_id,
                 "url": target.url,
                 "final_url": fetch_result.final_url,
+                "lemon8_link_names": target.expected_link_names,
                 "effective_author_link_name": None,
                 "author_source": "missing",
                 "region": target.region,
@@ -251,6 +254,7 @@ def run_batch_validation(
             "user_id": target.user_id,
             "url": target.url,
             "final_url": fetch_result.final_url,
+            "lemon8_link_names": target.expected_link_names,
             "effective_author_link_name": effective_author_link_name,
             "author_source": author_source,
             "region": target.region,
@@ -282,6 +286,7 @@ def summarize_results(rows: list[dict]) -> dict:
             "read_count_extraction_rate": 0.0,
             "read_count": None,
             "read_count_sum": 0,
+            "lemon8_link_names": None,
             "ownership_status": None,
             "ownership_status_counts": {"matched": 0, "mismatched": 0, "unknown": 0},
             "ownership_decidable_rate": 0.0,
@@ -300,6 +305,7 @@ def summarize_results(rows: list[dict]) -> dict:
     auto_stopped = any(row["stop_triggered"] for row in rows)
 
     single_read_count = read_counts[0] if total == 1 and read_counts else None
+    single_lemon8_link_names = rows[0].get("lemon8_link_names") if total == 1 else None
     single_ownership_status = rows[0]["ownership_status"] if total == 1 else None
     return {
         "total": total,
@@ -307,6 +313,7 @@ def summarize_results(rows: list[dict]) -> dict:
         "read_count_extraction_rate": round((read_count_ok / total) * 100, 2),
         "read_count": single_read_count,
         "read_count_sum": sum(read_counts),
+        "lemon8_link_names": single_lemon8_link_names,
         "ownership_status": single_ownership_status,
         "ownership_status_counts": ownership_status_counts,
         "ownership_decidable_rate": round((ownership_decidable / total) * 100, 2),

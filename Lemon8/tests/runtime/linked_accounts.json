@@ -1,6 +1,7 @@
 {
-  "user_id": "demo_user",
-  "lemon8_link_names": [
-    "f82_bmw4"
+  "users": [
+    { "user_id": "u_f82", "lemon8_link_names": ["f82_bmw4"] },
+    { "user_id": "u_jun", "lemon8_link_names": ["junjunjunya3"] },
+    { "user_id": "u_cb4", "lemon8_link_names": ["cb400f_rider_honda_marin"] }
   ]
 }

@@ -2,6 +2,7 @@ PYTHON ?= python3
 
 URLS_FILE ?= Lemon8/tests/runtime/urls.txt
 LINKED_ACCOUNTS_FILE ?= Lemon8/tests/runtime/linked_accounts.json
+LINKED_ACCOUNTS_MULTI_FILE ?= Lemon8/tests/runtime/linked_accounts_multi.json
 URL_USER_MAPPING_FILE ?= Lemon8/tests/runtime/url_user_mapping.csv
 OUTPUT_JSONL ?= Lemon8/tests/runtime/validation_result.jsonl
 OUTPUT_JSONL_MULTI ?= Lemon8/tests/runtime/validation_result_multi.jsonl
@@ -9,7 +10,7 @@ LOG_FILE ?= Lemon8/tests/runtime/validation_debug.log
 REGION ?= jp
 ALLOWED_REGIONS ?= jp
 
-.PHONY: install test validate validate-verbose validate-multi
+.PHONY: install test validate validate-verbose validate-multi validate-multi-default vm
 
 install:
 	$(PYTHON) -m pip install --user pytest httpx beautifulsoup4
@@ -47,3 +48,10 @@ validate-multi:
 		--output-jsonl "$(OUTPUT_JSONL_MULTI)" \
 		--region "$(REGION)" \
 		--allowed-regions "$(ALLOWED_REGIONS)"
+
+# Multi-user quick run with default runtime files.
+validate-multi-default:
+	@$(MAKE) validate-multi LINKED_ACCOUNTS_FILE="$(LINKED_ACCOUNTS_MULTI_FILE)" URL_USER_MAPPING_FILE="$(URL_USER_MAPPING_FILE)"
+
+# Super short alias for multi-user validation.
+vm: validate-multi-default

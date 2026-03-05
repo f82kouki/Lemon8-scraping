@@ -22,12 +22,6 @@ make install
 
 `pytest`, `httpx`, `beautifulsoup4` をインストールします。
 
-## テスト実行
-
-```bash
-make test
-```
-
 ## 検証実行（単一ユーザー）
 
 デフォルト設定のまま実行:
@@ -57,6 +51,12 @@ make validate-verbose
 make validate-multi \
   URL_USER_MAPPING_FILE=path/to/url_user_mapping.csv \
   LINKED_ACCOUNTS_FILE=path/to/linked_accounts_multi.json
+```
+
+既定の runtime ファイルを使う短縮実行:
+
+```bash
+make vm
 ```
 
 出力先は `OUTPUT_JSONL_MULTI`（デフォルト: `Lemon8/tests/runtime/validation_result_multi.jsonl`）です。
