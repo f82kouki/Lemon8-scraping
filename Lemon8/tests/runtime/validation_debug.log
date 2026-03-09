@@ -662,3 +662,278 @@
   "elapsed_ms": 1043
 }
 2026-03-05 18:32:18,469 INFO summary={"total": 11, "fetch_success_rate": 90.91, "read_count_extraction_rate": 90.91, "read_count": null, "read_count_sum": 21530, "lemon8_link_names": null, "ownership_status": null, "ownership_status_counts": {"matched": 3, "mismatched": 7, "unknown": 1}, "ownership_decidable_rate": 90.91, "auto_stopped": false}
+2026-03-09 11:59:24,464 INFO [START] user_id=u_f82 region=jp url=https://s.lemon8-app.com/al/GgbccrUvTc
+2026-03-09 11:59:26,023 INFO [FETCH] status=200 ok=True error_type=None final_url=https://www.lemon8-app.com/@f82_bmw4/7613685322899079688?...
+2026-03-09 11:59:26,053 INFO [PARSE] read_count=411 author=None parse_error=None
+2026-03-09 11:59:26,054 INFO [OWNERSHIP] status=matched reason=None actual=f82_bmw4 expected=f82_bmw4 author_source=final_url
+2026-03-09 11:59:26,055 INFO [RESULT] user_id=u_f82 fetch_ok=True read_count=411 ownership=matched reason=None elapsed_ms=1590
+2026-03-09 11:59:26,055 DEBUG final_row_json={
+  "user_id": "u_f82",
+  "url": "https://s.lemon8-app.com/al/GgbccrUvTc",
+  "final_url": "https://www.lemon8-app.com/@f82_bmw4/7613685322899079688?_r=1&_t=MGcEDGFAD50zwXZIudme0ARFylv%2FLSMzp2BW1136GbLKuYkmMTSey0udqtQNYkjOrewSep5II7PCiNES%2BqRl59%2Fe9vpvA%2Blbggo5h590ZEcdLMmJl3XvBBASqwK%2B3V%2FLsrqMe5J%2BScK6&region=jp&share_platform=copy",
+  "lemon8_link_names": [
+    "f82_bmw4"
+  ],
+  "effective_author_link_name": "f82_bmw4",
+  "author_source": "final_url",
+  "region": "jp",
+  "fetch_ok": true,
+  "http_status": 200,
+  "error_type": null,
+  "read_count": 411,
+  "author_link_name": null,
+  "ownership_status": "matched",
+  "failure_reason": null,
+  "stop_triggered": false,
+  "elapsed_ms": 1590
+}
+2026-03-09 11:59:26,055 INFO [START] user_id=u_f82 region=jp url=https://s.lemon8-app.com/al/GgbvmUwhvc
+2026-03-09 11:59:27,262 INFO [FETCH] status=200 ok=True error_type=None final_url=https://www.lemon8-app.com/@junjunjunya3/7553245903709110840?...
+2026-03-09 11:59:27,281 INFO [PARSE] read_count=2235 author=None parse_error=None
+2026-03-09 11:59:27,282 INFO [OWNERSHIP] status=mismatched reason=author_mismatch actual=junjunjunya3 expected=f82_bmw4 author_source=final_url
+2026-03-09 11:59:27,282 INFO [RESULT] user_id=u_f82 fetch_ok=True read_count=2235 ownership=mismatched reason=author_mismatch elapsed_ms=1226
+2026-03-09 11:59:27,282 DEBUG final_row_json={
+  "user_id": "u_f82",
+  "url": "https://s.lemon8-app.com/al/GgbvmUwhvc",
+  "final_url": "https://www.lemon8-app.com/@junjunjunya3/7553245903709110840?_r=1&_t=MGcEDLTwCGH9c0%2B0%2BwT9iQRF8eThhwwMM0alGaHC0iTSL7sj1g3F9x8%2FO1O4EKwskd3ReC0n23m%2BpoLyG4lVDFRrUAh9QJ3mBwTkC%2FO7Z9hE2rlxjRgMBBDzLoeyJ8IZPWVXHBSvxPf8&region=jp&share_platform=line",
+  "lemon8_link_names": [
+    "f82_bmw4"
+  ],
+  "effective_author_link_name": "junjunjunya3",
+  "author_source": "final_url",
+  "region": "jp",
+  "fetch_ok": true,
+  "http_status": 200,
+  "error_type": null,
+  "read_count": 2235,
+  "author_link_name": null,
+  "ownership_status": "mismatched",
+  "failure_reason": "author_mismatch",
+  "stop_triggered": false,
+  "elapsed_ms": 1226
+}
+2026-03-09 11:59:27,282 INFO [START] user_id=u_f82 region=jp url=https://s.lemon8-app.com/al/GgMekZRMvc
+2026-03-09 11:59:29,206 INFO [FETCH] status=200 ok=True error_type=None final_url=https://www.lemon8-app.com/@junjunjunya3/7521358761039118853?...
+2026-03-09 11:59:29,230 INFO [PARSE] read_count=1787 author=None parse_error=None
+2026-03-09 11:59:29,231 INFO [OWNERSHIP] status=mismatched reason=author_mismatch actual=junjunjunya3 expected=f82_bmw4 author_source=final_url
+2026-03-09 11:59:29,231 INFO [RESULT] user_id=u_f82 fetch_ok=True read_count=1787 ownership=mismatched reason=author_mismatch elapsed_ms=1948
+2026-03-09 11:59:29,231 DEBUG final_row_json={
+  "user_id": "u_f82",
+  "url": "https://s.lemon8-app.com/al/GgMekZRMvc",
+  "final_url": "https://www.lemon8-app.com/@junjunjunya3/7521358761039118853?_r=1&_t=MGcEDP3KkwrwoP7Nb3qGCgRF6RkLKR1B0%2BMxVQqot%2BCsFBIjUOnhamQ76PGkzlGkIZj8SYqNyxo4nu33IJ%2BtWhXhC0IethaE8w47DgWmDCyvHXrok42nBBAJNnjwURwd%2Bct1pFcQJW42&region=jp&share_platform=line",
+  "lemon8_link_names": [
+    "f82_bmw4"
+  ],
+  "effective_author_link_name": "junjunjunya3",
+  "author_source": "final_url",
+  "region": "jp",
+  "fetch_ok": true,
+  "http_status": 200,
+  "error_type": null,
+  "read_count": 1787,
+  "author_link_name": null,
+  "ownership_status": "mismatched",
+  "failure_reason": "author_mismatch",
+  "stop_triggered": false,
+  "elapsed_ms": 1948
+}
+2026-03-09 11:59:29,231 INFO [START] user_id=u_f82 region=jp url=https://s.lemon8-app.com/al/GgUkMRsZvc
+2026-03-09 11:59:30,506 INFO [FETCH] status=200 ok=True error_type=None final_url=https://www.lemon8-app.com/@cb400f_rider_honda_marin/7601047810779185671?...
+2026-03-09 11:59:30,527 INFO [PARSE] read_count=2605 author=None parse_error=None
+2026-03-09 11:59:30,527 INFO [OWNERSHIP] status=mismatched reason=author_mismatch actual=cb400f_rider_honda_marin expected=f82_bmw4 author_source=final_url
+2026-03-09 11:59:30,527 INFO [RESULT] user_id=u_f82 fetch_ok=True read_count=2605 ownership=mismatched reason=author_mismatch elapsed_ms=1296
+2026-03-09 11:59:30,527 DEBUG final_row_json={
+  "user_id": "u_f82",
+  "url": "https://s.lemon8-app.com/al/GgUkMRsZvc",
+  "final_url": "https://www.lemon8-app.com/@cb400f_rider_honda_marin/7601047810779185671?_r=1&_t=MGcEDB%2F6XuprCPTB8d0P3wRFkC1QXO5pocz60Rr6q5UToGQjyKmHLwaYUrDMF2WEjZmC5%2Bi6RlO%2FyCdt%2B%2FYm7P3fxoOhlI4LtEto9fpVrdXfty0sT4m%2BBBAIZkL5wHczeO7LoFB14DDN&region=jp&share_platform=line",
+  "lemon8_link_names": [
+    "f82_bmw4"
+  ],
+  "effective_author_link_name": "cb400f_rider_honda_marin",
+  "author_source": "final_url",
+  "region": "jp",
+  "fetch_ok": true,
+  "http_status": 200,
+  "error_type": null,
+  "read_count": 2605,
+  "author_link_name": null,
+  "ownership_status": "mismatched",
+  "failure_reason": "author_mismatch",
+  "stop_triggered": false,
+  "elapsed_ms": 1296
+}
+2026-03-09 11:59:30,527 INFO [START] user_id=u_f82 region=jp url=https://s.lemon8-app.com/al/GghMZssZvc
+2026-03-09 11:59:31,661 INFO [FETCH] status=200 ok=True error_type=None final_url=https://www.lemon8-app.com/@cb400f_rider_honda_marin/7599517451109270072?...
+2026-03-09 11:59:31,672 INFO [PARSE] read_count=993 author=None parse_error=None
+2026-03-09 11:59:31,674 INFO [OWNERSHIP] status=mismatched reason=author_mismatch actual=cb400f_rider_honda_marin expected=f82_bmw4 author_source=final_url
+2026-03-09 11:59:31,674 INFO [RESULT] user_id=u_f82 fetch_ok=True read_count=993 ownership=mismatched reason=author_mismatch elapsed_ms=1146
+2026-03-09 11:59:31,674 DEBUG final_row_json={
+  "user_id": "u_f82",
+  "url": "https://s.lemon8-app.com/al/GghMZssZvc",
+  "final_url": "https://www.lemon8-app.com/@cb400f_rider_honda_marin/7599517451109270072?_r=1&_t=MGcEDKbDPx%2BVEiqJMH6qCQRFTxsGhEpFgIqXHia7rm%2B47gb3oebIl3pPn3ZAkleOWFmiXSTvM6dstODJpaRNiJSy8Q57I3l2nJ4F%2FqMf%2FhTmL5HzbZ5vBBATueBhCHodBBGbwXOCKHky&region=jp&share_platform=line",
+  "lemon8_link_names": [
+    "f82_bmw4"
+  ],
+  "effective_author_link_name": "cb400f_rider_honda_marin",
+  "author_source": "final_url",
+  "region": "jp",
+  "fetch_ok": true,
+  "http_status": 200,
+  "error_type": null,
+  "read_count": 993,
+  "author_link_name": null,
+  "ownership_status": "mismatched",
+  "failure_reason": "author_mismatch",
+  "stop_triggered": false,
+  "elapsed_ms": 1146
+}
+2026-03-09 11:59:31,674 INFO [START] user_id=u_cb4 region=jp url=https://www.lemon8-app.com/@cb400f_rider_honda_marin/7598571608718066187?...
+2026-03-09 11:59:32,276 INFO [FETCH] status=200 ok=True error_type=None final_url=https://www.lemon8-app.com/@cb400f_rider_honda_marin/7598571608718066187?...
+2026-03-09 11:59:32,295 INFO [PARSE] read_count=965 author=cb400f_rider_honda_marin parse_error=None
+2026-03-09 11:59:32,295 INFO [OWNERSHIP] status=matched reason=None actual=cb400f_rider_honda_marin expected=cb400f_rider_honda_marin author_source=html
+2026-03-09 11:59:32,296 INFO [RESULT] user_id=u_cb4 fetch_ok=True read_count=965 ownership=matched reason=None elapsed_ms=621
+2026-03-09 11:59:32,296 DEBUG final_row_json={
+  "user_id": "u_cb4",
+  "url": "https://www.lemon8-app.com/@cb400f_rider_honda_marin/7598571608718066187?_r=1&_t=MGcEDF9iH4q3h4OAVN+h1gRFA8vQx40uYcDQJlMdFSFhuhM6dSUUSidHdn0vzABN8t2xbzuLKuSTiURt1/yaIkeYTnZp9Kdmpt/MdSt652LY/mOrHWOJBBA52AYagWFoEd1Ta2Bs3JTj&region=jp&share_platform=line",
+  "final_url": "https://www.lemon8-app.com/@cb400f_rider_honda_marin/7598571608718066187?_r=1&_t=MGcEDF9iH4q3h4OAVN+h1gRFA8vQx40uYcDQJlMdFSFhuhM6dSUUSidHdn0vzABN8t2xbzuLKuSTiURt1/yaIkeYTnZp9Kdmpt/MdSt652LY/mOrHWOJBBA52AYagWFoEd1Ta2Bs3JTj&region=jp&share_platform=line",
+  "lemon8_link_names": [
+    "cb400f_rider_honda_marin"
+  ],
+  "effective_author_link_name": "cb400f_rider_honda_marin",
+  "author_source": "html",
+  "region": "jp",
+  "fetch_ok": true,
+  "http_status": 200,
+  "error_type": null,
+  "read_count": 965,
+  "author_link_name": "cb400f_rider_honda_marin",
+  "ownership_status": "matched",
+  "failure_reason": null,
+  "stop_triggered": false,
+  "elapsed_ms": 621
+}
+2026-03-09 11:59:32,296 INFO [START] user_id=u_jun region=jp url=https://s.lemon8-app.com/al/GgbpbNYhvc
+2026-03-09 11:59:33,705 INFO [FETCH] status=200 ok=True error_type=None final_url=https://www.lemon8-app.com/@cb400f_rider_honda_marin/7593230200058511884?...
+2026-03-09 11:59:33,734 INFO [PARSE] read_count=2755 author=None parse_error=None
+2026-03-09 11:59:33,734 INFO [OWNERSHIP] status=mismatched reason=author_mismatch actual=cb400f_rider_honda_marin expected=junjunjunya3 author_source=final_url
+2026-03-09 11:59:33,734 INFO [RESULT] user_id=u_jun fetch_ok=True read_count=2755 ownership=mismatched reason=author_mismatch elapsed_ms=1438
+2026-03-09 11:59:33,734 DEBUG final_row_json={
+  "user_id": "u_jun",
+  "url": "https://s.lemon8-app.com/al/GgbpbNYhvc",
+  "final_url": "https://www.lemon8-app.com/@cb400f_rider_honda_marin/7593230200058511884?_r=1&_t=MGcEDOzokB7BEd7uUqLD9QRF3DRnTeXTpEDIcYnupSuGCdcMZjGWoRyG2Xt5vig%2B3TF5au3e%2FpAGo32mHgdxOJGjtDw7rlNdr7rg2zcFqGfLyylkU%2BmoBBC5W48kvebiEALsIUHpNix3&region=jp&share_platform=line",
+  "lemon8_link_names": [
+    "junjunjunya3"
+  ],
+  "effective_author_link_name": "cb400f_rider_honda_marin",
+  "author_source": "final_url",
+  "region": "jp",
+  "fetch_ok": true,
+  "http_status": 200,
+  "error_type": null,
+  "read_count": 2755,
+  "author_link_name": null,
+  "ownership_status": "mismatched",
+  "failure_reason": "author_mismatch",
+  "stop_triggered": false,
+  "elapsed_ms": 1438
+}
+2026-03-09 11:59:33,734 INFO [START] user_id=u_jun region=jp url=https://s.lemon8-app.com/al/GgZjdFkvTc
+2026-03-09 11:59:35,256 INFO [FETCH] status=200 ok=True error_type=None final_url=https://www.lemon8-app.com/@cb400f_rider_honda_marin/7593126231890084408?...
+2026-03-09 11:59:35,301 INFO [PARSE] read_count=8908 author=None parse_error=None
+2026-03-09 11:59:35,301 INFO [OWNERSHIP] status=mismatched reason=author_mismatch actual=cb400f_rider_honda_marin expected=junjunjunya3 author_source=final_url
+2026-03-09 11:59:35,301 INFO [RESULT] user_id=u_jun fetch_ok=True read_count=8908 ownership=mismatched reason=author_mismatch elapsed_ms=1567
+2026-03-09 11:59:35,301 DEBUG final_row_json={
+  "user_id": "u_jun",
+  "url": "https://s.lemon8-app.com/al/GgZjdFkvTc",
+  "final_url": "https://www.lemon8-app.com/@cb400f_rider_honda_marin/7593126231890084408?_r=1&_t=MGcEDCHjvWNDOaDx0hzyPARFTmgjUWIH7wPTPk45vETFQUzFC%2FSpIyPbA%2BSA5MmblgdXhU8nLHAPPweTWDLNPFtvGZwr0l%2F2pI%2FylHiHI33GU%2FuE8IBiBBAB9n%2FbyI1CVVwT2oucBbCR&region=jp&share_platform=line",
+  "lemon8_link_names": [
+    "junjunjunya3"
+  ],
+  "effective_author_link_name": "cb400f_rider_honda_marin",
+  "author_source": "final_url",
+  "region": "jp",
+  "fetch_ok": true,
+  "http_status": 200,
+  "error_type": null,
+  "read_count": 8908,
+  "author_link_name": null,
+  "ownership_status": "mismatched",
+  "failure_reason": "author_mismatch",
+  "stop_triggered": false,
+  "elapsed_ms": 1567
+}
+2026-03-09 11:59:35,301 INFO [START] user_id=u_jun region=jp url=https://s.lemon8-app.com/al/GgkdcFkvTc
+2026-03-09 11:59:36,608 INFO [FETCH] status=200 ok=True error_type=None final_url=https://www.lemon8-app.com/@cb400f_rider_honda_marin/7592428985561236024?...
+2026-03-09 11:59:36,629 INFO [PARSE] read_count=543 author=None parse_error=None
+2026-03-09 11:59:36,629 INFO [OWNERSHIP] status=mismatched reason=author_mismatch actual=cb400f_rider_honda_marin expected=junjunjunya3 author_source=final_url
+2026-03-09 11:59:36,630 INFO [RESULT] user_id=u_jun fetch_ok=True read_count=543 ownership=mismatched reason=author_mismatch elapsed_ms=1328
+2026-03-09 11:59:36,630 DEBUG final_row_json={
+  "user_id": "u_jun",
+  "url": "https://s.lemon8-app.com/al/GgkdcFkvTc",
+  "final_url": "https://www.lemon8-app.com/@cb400f_rider_honda_marin/7592428985561236024?_r=1&_t=MGcEDNF3Gw1Wc9%2Bhn3MIzgRF01GY0rlR%2F%2BZHgOocAX4NT%2FabO%2FE6hP4ASl18BFn%2FFV7I2v%2Fioa255prxniCjhrTEIC%2Fj1kmvJGst%2B6M26k8RSWwZeqqRBBBBuAqKvvjvGJUNZSuQuO5r&region=jp&share_platform=line",
+  "lemon8_link_names": [
+    "junjunjunya3"
+  ],
+  "effective_author_link_name": "cb400f_rider_honda_marin",
+  "author_source": "final_url",
+  "region": "jp",
+  "fetch_ok": true,
+  "http_status": 200,
+  "error_type": null,
+  "read_count": 543,
+  "author_link_name": null,
+  "ownership_status": "mismatched",
+  "failure_reason": "author_mismatch",
+  "stop_triggered": false,
+  "elapsed_ms": 1328
+}
+2026-03-09 11:59:36,630 INFO [START] user_id=u_jun region=jp url=https://s.lemon8-app.com/al/GgGzlZ2sFc
+2026-03-09 11:59:38,813 INFO [FETCH] status=404 ok=False error_type=unknown final_url=https://s.lemon8-app.com/al/GgGzlZ2sFc
+2026-03-09 11:59:38,813 WARNING [FETCH_FAIL] url=https://s.lemon8-app.com/al/GgGzlZ2sFc status=404 error_type=unknown
+2026-03-09 11:59:38,813 INFO [RESULT] user_id=u_jun fetch_ok=False read_count=None ownership=unknown reason=fetch_failed elapsed_ms=2183
+2026-03-09 11:59:38,813 DEBUG final_row_json={
+  "user_id": "u_jun",
+  "url": "https://s.lemon8-app.com/al/GgGzlZ2sFc",
+  "final_url": "https://s.lemon8-app.com/al/GgGzlZ2sFc",
+  "lemon8_link_names": [
+    "junjunjunya3"
+  ],
+  "effective_author_link_name": null,
+  "author_source": "missing",
+  "region": "jp",
+  "fetch_ok": false,
+  "http_status": 404,
+  "error_type": "unknown",
+  "read_count": null,
+  "author_link_name": null,
+  "ownership_status": "unknown",
+  "failure_reason": "fetch_failed",
+  "stop_triggered": false,
+  "elapsed_ms": 2183
+}
+2026-03-09 11:59:38,813 INFO [START] user_id=u_cb4 region=jp url=https://www.lemon8-app.com/@cb400f_rider_honda_marin/7589718182072517131?...
+2026-03-09 11:59:39,664 INFO [FETCH] status=200 ok=True error_type=None final_url=https://www.lemon8-app.com/@cb400f_rider_honda_marin/7589718182072517131?...
+2026-03-09 11:59:39,701 INFO [PARSE] read_count=1455 author=cb400f_rider_honda_marin parse_error=None
+2026-03-09 11:59:39,701 INFO [OWNERSHIP] status=matched reason=None actual=cb400f_rider_honda_marin expected=cb400f_rider_honda_marin author_source=html
+2026-03-09 11:59:39,701 INFO [RESULT] user_id=u_cb4 fetch_ok=True read_count=1455 ownership=matched reason=None elapsed_ms=887
+2026-03-09 11:59:39,701 DEBUG final_row_json={
+  "user_id": "u_cb4",
+  "url": "https://www.lemon8-app.com/@cb400f_rider_honda_marin/7589718182072517131?_r=1&_t=MGcEDGdUurG9ul%2Fdug84mARFfjgvF0gKSaPFB15b6EmdBLy1g4%2B6QfA%2F7b5WhFo0r0DEfbU9dvryhdRtZsder50cL09xGnbD1zKWxPzPaZ80zk3NDSrJBBA6%2B3gbutMf3ZcaeROGbUwM&region=jp&share_platform=line",
+  "final_url": "https://www.lemon8-app.com/@cb400f_rider_honda_marin/7589718182072517131?_r=1&_t=MGcEDGdUurG9ul%2Fdug84mARFfjgvF0gKSaPFB15b6EmdBLy1g4%2B6QfA%2F7b5WhFo0r0DEfbU9dvryhdRtZsder50cL09xGnbD1zKWxPzPaZ80zk3NDSrJBBA6%2B3gbutMf3ZcaeROGbUwM&region=jp&share_platform=line",
+  "lemon8_link_names": [
+    "cb400f_rider_honda_marin"
+  ],
+  "effective_author_link_name": "cb400f_rider_honda_marin",
+  "author_source": "html",
+  "region": "jp",
+  "fetch_ok": true,
+  "http_status": 200,
+  "error_type": null,
+  "read_count": 1455,
+  "author_link_name": "cb400f_rider_honda_marin",
+  "ownership_status": "matched",
+  "failure_reason": null,
+  "stop_triggered": false,
+  "elapsed_ms": 887
+}
+2026-03-09 11:59:39,701 INFO summary={"total": 11, "fetch_success_rate": 90.91, "read_count_extraction_rate": 90.91, "read_count": null, "read_count_sum": 22657, "lemon8_link_names": null, "ownership_status": null, "ownership_status_counts": {"matched": 3, "mismatched": 7, "unknown": 1}, "ownership_decidable_rate": 90.91, "auto_stopped": false}
